@@ -345,7 +345,7 @@ class LLRAnalysis(QMainWindow):
                 msg_box = QMessageBox(self)
                 msg_box.setIcon(QMessageBox.Icon.Warning)
                 msg_box.setWindowTitle("Analysis Completed")
-                msg_box.setText("All files have been analyzed in selected folder!\n Press OK to close program.")
+                msg_box.setText("All files have been analyzed in selected folder!\nPress OK to save data and close program.")
                 msg_box.setStandardButtons(QMessageBox.StandardButton.Ok)
                 msg_box.buttonClicked.connect(self.closeApp)
                 msg_box.exec()
