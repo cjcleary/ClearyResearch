@@ -303,7 +303,7 @@ class LLRAnalysis(QMainWindow):
         ax.axvspan(mvic_start_time, mvic_end_time, color = 'orange', alpha = 0.3)
         ax.set_title(f"Corrected/Filtered Signal - {self.basename}")
         ax.set_xlabel("Time (s)")
-        ax.set_ylabel("Corrected Force (N)")
+        ax.set_ylabel("Force (N)")
         ax.annotate(f'MVIC\n{mvic:.2f} N',
                     xy = (annotation_x, annotation_y),
                     xytext =  (annotation_x, annotation_y + 0.02 * max(self.filtered_signal)),
