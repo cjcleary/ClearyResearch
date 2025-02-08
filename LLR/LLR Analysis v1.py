@@ -378,7 +378,7 @@ class LLRAnalysis(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    qdarktheme.setup_theme("dark")
+    qdarktheme.load_palette()
     window = LLRAnalysis()
     window.show()
     sys.exit(app.exec())

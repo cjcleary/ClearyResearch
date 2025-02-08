@@ -13,7 +13,8 @@ from PyQt5.QtWidgets import (QMainWindow, QApplication, QWidget, QVBoxLayout, QH
 from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QFont
 from scipy.integrate import (cumulative_trapezoid as int_cumtrapz, trapezoid as int_trapz)
-import qdarktheme
+import qdarktheme 
+
 from win32api import GetSystemMetrics
 
 
