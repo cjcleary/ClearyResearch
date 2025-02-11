@@ -1,6 +1,14 @@
 # <b> Introduction </b>
 
-These data come from a lab session done this semester in which students completed a baseline countermovement vertical jump (CMJ), a 15-second Wingate test againts 7.5% of their body mass, and then another CMJ. 
+These data come from a lab session done this semester in which students completed a baseline countermovement vertical jump (CMJ), <u> a 15-second Wingate test againts 7.5% of their body mass</u>, and then another CMJ. Goal of the lab was to introduce students to experimental designs by measuring somtehing prior to and after (CMJ perofrmance) some kind of intervention, in this case the intervention was the Wingate test. As well as introduce the energy systems
+
+For their lab reports, students were given some discrete variables all calculated via the Hawkin force plates such as:
+<ul>
+    <li> <i> Jump height (cm) via impulse-momentum. </i>
+    <li> <i> Modified reactive strength index (AU). </i>
+</ul>
+
+For my own purposes of learning and improving my skills as a Python coder, I choose to use [the spm1d package](https://spm1d.org/index.html) for Statistical Parameteric Mapping (SPM) of the CMJ force time curves prior to and after the Wingate. This is a package I have been wanting to experiment with for a while. Since in exercise and sports science, we spend so much time on discrete (peaks, means, etc.) variables but collect much more data than we actually analyze. SPM allows for the analysis of the entire force-time curve. 
 
 
 ```python
@@ -433,7 +441,7 @@ print(f'There are {data_to_save.shape[1]} columns. And there are {data_to_save.s
 
 <ol>
 <li> First, filter the dataframes into post_df and pre_df based on column names
-<li> Then transpose the dataframes into a J x Q matrix (subjects X nodes/points per trial)
+<li> Then transpose the dataframes into a J x Q matrix (subjects [rows] X nodes/points per trial [columns])
 <li> Lastly, transfer the dataframe into an array for ease. 
 
 
@@ -450,279 +458,6 @@ post_ft = np.array(pre_transpose)
 ```
 
 <b> Going to arrange the data so we can plot it as mean +/- SD for PRE and POST in the next code block. 
-
-
-```python
-
-```
-
-
-
-
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-      <th>8</th>
-      <th>9</th>
-      <th>...</th>
-      <th>91</th>
-      <th>92</th>
-      <th>93</th>
-      <th>94</th>
-      <th>95</th>
-      <th>96</th>
-      <th>97</th>
-      <th>98</th>
-      <th>99</th>
-      <th>100</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>001-POST</th>
-      <td>9.775837</td>
-      <td>9.723279</td>
-      <td>9.654953</td>
-      <td>9.653201</td>
-      <td>9.674224</td>
-      <td>9.701380</td>
-      <td>9.670721</td>
-      <td>9.653201</td>
-      <td>9.611155</td>
-      <td>9.478883</td>
-      <td>...</td>
-      <td>18.432183</td>
-      <td>18.819362</td>
-      <td>18.885936</td>
-      <td>18.504013</td>
-      <td>17.528181</td>
-      <td>15.669370</td>
-      <td>12.667418</td>
-      <td>8.763215</td>
-      <td>4.091661</td>
-      <td>0.595660</td>
-    </tr>
-    <tr>
-      <th>002-POST</th>
-      <td>9.806930</td>
-      <td>9.711841</td>
-      <td>9.592608</td>
-      <td>9.479038</td>
-      <td>9.333574</td>
-      <td>9.078117</td>
-      <td>8.831900</td>
-      <td>8.547678</td>
-      <td>8.308765</td>
-      <td>8.060014</td>
-      <td>...</td>
-      <td>19.056891</td>
-      <td>18.690995</td>
-      <td>18.075900</td>
-      <td>17.143646</td>
-      <td>15.766354</td>
-      <td>13.870993</td>
-      <td>11.249949</td>
-      <td>7.728397</td>
-      <td>3.747797</td>
-      <td>0.640878</td>
-    </tr>
-    <tr>
-      <th>003-POST</th>
-      <td>9.766499</td>
-      <td>9.586303</td>
-      <td>9.387806</td>
-      <td>9.158337</td>
-      <td>8.849328</td>
-      <td>8.443183</td>
-      <td>8.022255</td>
-      <td>7.561910</td>
-      <td>7.176881</td>
-      <td>6.801003</td>
-      <td>...</td>
-      <td>20.680343</td>
-      <td>19.981378</td>
-      <td>18.932579</td>
-      <td>17.408653</td>
-      <td>15.429309</td>
-      <td>13.017776</td>
-      <td>10.151528</td>
-      <td>6.907291</td>
-      <td>3.449070</td>
-      <td>0.651100</td>
-    </tr>
-    <tr>
-      <th>004-POST</th>
-      <td>9.764290</td>
-      <td>9.713698</td>
-      <td>9.652228</td>
-      <td>9.466049</td>
-      <td>9.252803</td>
-      <td>9.060426</td>
-      <td>8.909535</td>
-      <td>8.688700</td>
-      <td>8.338097</td>
-      <td>7.894277</td>
-      <td>...</td>
-      <td>19.517323</td>
-      <td>19.259935</td>
-      <td>18.732512</td>
-      <td>17.813252</td>
-      <td>16.413367</td>
-      <td>14.324669</td>
-      <td>11.523253</td>
-      <td>7.572384</td>
-      <td>3.229552</td>
-      <td>0.480626</td>
-    </tr>
-    <tr>
-      <th>005-POST</th>
-      <td>9.785691</td>
-      <td>9.638169</td>
-      <td>9.515233</td>
-      <td>9.375905</td>
-      <td>9.261165</td>
-      <td>9.150523</td>
-      <td>9.031685</td>
-      <td>8.884162</td>
-      <td>8.687465</td>
-      <td>8.466180</td>
-      <td>...</td>
-      <td>17.473278</td>
-      <td>16.883186</td>
-      <td>16.129180</td>
-      <td>15.121106</td>
-      <td>13.838476</td>
-      <td>12.146059</td>
-      <td>9.871747</td>
-      <td>6.843427</td>
-      <td>3.294680</td>
-      <td>0.622875</td>
-    </tr>
-    <tr>
-      <th>006-POST</th>
-      <td>9.784046</td>
-      <td>9.568994</td>
-      <td>9.321110</td>
-      <td>9.176647</td>
-      <td>9.248878</td>
-      <td>9.513179</td>
-      <td>9.777480</td>
-      <td>9.723306</td>
-      <td>9.429456</td>
-      <td>8.918913</td>
-      <td>...</td>
-      <td>18.205549</td>
-      <td>18.001988</td>
-      <td>17.545618</td>
-      <td>16.688693</td>
-      <td>15.357341</td>
-      <td>13.431722</td>
-      <td>10.934821</td>
-      <td>7.879769</td>
-      <td>4.338798</td>
-      <td>0.673064</td>
-    </tr>
-    <tr>
-      <th>007-POST</th>
-      <td>9.777619</td>
-      <td>9.599484</td>
-      <td>9.392452</td>
-      <td>9.160283</td>
-      <td>8.928114</td>
-      <td>8.504945</td>
-      <td>8.052879</td>
-      <td>7.635648</td>
-      <td>7.405656</td>
-      <td>7.210301</td>
-      <td>...</td>
-      <td>19.640149</td>
-      <td>19.954260</td>
-      <td>19.992856</td>
-      <td>19.637180</td>
-      <td>18.675450</td>
-      <td>16.865799</td>
-      <td>14.203476</td>
-      <td>10.462052</td>
-      <td>5.430339</td>
-      <td>0.672954</td>
-    </tr>
-    <tr>
-      <th>008-POST</th>
-      <td>9.776079</td>
-      <td>9.578110</td>
-      <td>9.264958</td>
-      <td>8.894216</td>
-      <td>8.307507</td>
-      <td>7.580421</td>
-      <td>6.680561</td>
-      <td>5.672717</td>
-      <td>4.679272</td>
-      <td>3.844202</td>
-      <td>...</td>
-      <td>16.906569</td>
-      <td>16.600617</td>
-      <td>16.017508</td>
-      <td>14.988068</td>
-      <td>13.544692</td>
-      <td>11.647788</td>
-      <td>9.192970</td>
-      <td>6.061457</td>
-      <td>2.645588</td>
-      <td>0.518319</td>
-    </tr>
-    <tr>
-      <th>009-POST</th>
-      <td>9.787597</td>
-      <td>9.708962</td>
-      <td>9.703943</td>
-      <td>9.703943</td>
-      <td>9.710635</td>
-      <td>9.770866</td>
-      <td>9.770866</td>
-      <td>9.737404</td>
-      <td>9.687212</td>
-      <td>9.631163</td>
-      <td>...</td>
-      <td>18.409048</td>
-      <td>18.025910</td>
-      <td>17.310662</td>
-      <td>16.093487</td>
-      <td>14.284036</td>
-      <td>11.949234</td>
-      <td>9.185284</td>
-      <td>6.085041</td>
-      <td>3.147926</td>
-      <td>0.652506</td>
-    </tr>
-  </tbody>
-</table>
-<p>9 rows × 101 columns</p>
-</div>
-
-
 
 
 ```python
@@ -760,7 +495,7 @@ plt.tight_layout()
 
 
     
-![png](output_files/output_16_0.png)
+![png](output_files/output_15_0.png)
     
 
 
@@ -824,6 +559,6 @@ plt.xlabel('Time (0-100%)');
 
 
     
-![png](output_files/output_21_0.png)
+![png](output_files/output_20_0.png)
     
 
