@@ -453,8 +453,8 @@ pre_df = data_to_save.loc[:, data_to_save.columns.str.contains('PRE')]
 post_transpose = post_df.T
 pre_transpose = pre_df.T
 
-pre_ft = np.array(post_transpose)
-post_ft = np.array(pre_transpose)
+pre_ft = np.array(pre_transpose)
+post_ft = np.array(post_transpose)
 ```
 
 <b> Going to arrange the data so we can plot it as mean +/- SD for PRE and POST in the next code block. 
