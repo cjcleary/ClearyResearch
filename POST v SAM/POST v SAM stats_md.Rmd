@@ -10,7 +10,15 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ## Analysis code for Cleary et al. POST v SAM project. 
-This code is a supplement R Markdown file for the accompyaning R code. 
+This code is a supplement R Markdown file for the accompanying manuscript
+```{r libaries loading}
+# Load in libraries
+library(tidyverse) 
+library(afex)
+library(rstatix)
+library(emmeans)
+
+```
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
