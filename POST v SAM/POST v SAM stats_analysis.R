@@ -104,14 +104,13 @@ emm_eff_size <- function(model, term) {
   
   # get sigma
   sigma <- sqrt(model$anova_table[term, 'MSE'])
-  
+
   # get edf
   edf <- df.residual(model$lm)
   
   # effect sizes
   es <- eff_size(emm, sigma = sigma, edf = edf)
-  
-  
+
   return(
     list('Estimated Marginal Means'= emm, 
          'Pairwise Comps' = pwc, 
@@ -125,8 +124,8 @@ quads_mcsa_mod <- aov_4(QuadsmCSA ~ Group * (Leg | ID),
                         anova_table = list(es = "pes",
                                            correction = "none"))
 # model assumptions checking
-performance::check_sphericity(quads_mcsa_mod)
 plot(performance::check_normality(quads_mcsa_mod))
+performance::check_homogeneity(quads_mcsa_mod)
 
 # View model
 quads_mcsa_mod
@@ -134,85 +133,80 @@ quads_mcsa_mod
 # no interactions or main effects. 
 # Return mean diffs and Cohen's d, however, for Results section
 emm_eff_size(quads_mcsa_mod, 'Leg')
-
 emm_eff_size(quads_mcsa_mod, 'Group')
 
-
+# hamstrings mCSA
 hams_mcsa_mod <- aov_4(HamsmCSA ~ Group * (Leg | ID),
                        data = us_dat,
                        anova_table = list(es = "pes",
                                           correction = "none"))
+# check model assumptions
+plot(performance::check_normality(hams_mcsa_mod))
+performance::check_homogeneity(hams_mcsa_mod)
+
+# view model
 hams_mcsa_mod
 
-emmeans(hams_mcsa_mod, pairwise ~ Leg)
-emmeans(hams_mcsa_mod, pairwise ~ Group)
-
-# eff_sizes for post hocs
-emm_eff_size(model = hams_mcsa_mod, term = "Leg")
-emm_eff_size(model = hams_mcsa_mod, term = "Group")
-
+# no statistical findings. return mean diffs and d for results
+emm_eff_size(hams_mcsa_mod, 'Leg')
+emm_eff_size(hams_mcsa_mod, 'Group')
 
 ##### MVIC models ##### 
 quads_mvic_mod <- aov_4(QuadsMVIC ~ Group + (Leg | ID),
                         data = mvic_dat,
                         anova_table = list(es = "pes",
                                            correction = "none"))
-quads_mvic_mod
 
-emmeans(quads_mvic_mod, pairwise ~ Leg)
-emmeans(quads_mvic_mod, pairwise ~ Group)
+# check model assumptions
+plot(performance::check_normality(quads_mvic_mod))
+performance::check_homogeneity(quads_mvic_mod)
+
+# view model
+quads_mvic_mod # no sig. findings
 
 # eff_sizes for post hocs
-emm_eff_size(model = quads_mvic_mod, term = "Leg")
-emm_eff_size(model = quads_mvic_mod, term = "Group")
+emm_eff_size(model = quads_mvic_mod, "Leg")
+emm_eff_size(model = quads_mvic_mod, "Group")
 
 # hams MVIC model
 hams_mvic_mod <- aov_4(HamsMVIC ~ Group * (Leg | ID),
                        data = mvic_dat,
                        anova_table = list(es = "pes",
                                           correction = "none"))
-hams_mvic_mod
+plot(performance::check_normality(hams_mvic_mod))
+performance::check_homogeneity(hams_mvic_mod)
 
-emmeans(hams_mvic_mod, pairwise ~ Leg)
-emmeans(hams_mvic_mod, pairwise ~ Group)
+# view model
+hams_mvic_mod # group main effect p=0.037, n2p=0.244
 
+# return post hocs for Results
 emm_eff_size(hams_mvic_mod, term = 'Leg')
-emm_eff_size(hams_mvic_mod, term = 'Group')
+emm_eff_size(hams_mvic_mod, term = 'Group') # POST > SAM by ~70 N, p=0.0371, d=0.758
 
 ##### Relative MVIC models #####
 quads_relmvic_mod <- aov_4(QuadsRelMVIC ~ Group * (Leg | ID),
                            data = relmvic_dat,
                            anova_table = list(es = "pes",
                                               correction = "none"))
-quads_relmvic_mod
+plot(performance::check_normality(quads_relmvic_mod))
+performance::check_homogeneity(quads_relmvic_mod)
 
-emmeans(quads_relmvic_mod, pairwise ~ Leg)
-emmeans(quads_relmvic_mod, pairwise ~ Group)
+quads_relmvic_mod # no sig. findings
 
-emm_eff_size(model = quads_relmvic_mod, term = "Leg")
-emm_eff_size(model = quads_relmvic_mod, term = "Group")
+emm_eff_size(quads_relmvic_mod, term = 'Leg')
+emm_eff_size(quads_relmvic_mod, term = 'Group')
 
 # hams rel mvic
 hams_relmvic_mod <- aov_4(HamsRelMVIC ~ Group * (Leg | ID),
                           data = relmvic_dat,
                           anova_table = list(es = "pes",
                                              correction = "none"))
-hams_relmvic_mod
+plot(performance::check_normality(hams_relmvic_mod))
+performance::check_homogeneity(hams_relmvic_mod)
 
-emmeans(hams_relmvic_mod, pairwise ~ Leg)
-emmeans(hams_relmvic_mod, pairwise ~ Group)
+hams_relmvic_mod # group main effect
 
+# post hocs
 emm_eff_size(hams_relmvic_mod, term = 'Leg')
 emm_eff_size(hams_relmvic_mod, term = 'Group')
-
-##
-hq_mvic_dat <- mvic_dat %>% 
-  mutate(HQ = HamsMVIC/QuadsMVIC)
-
-hq_mvic_mod <- aov_4(HQ ~ Group * (Leg | ID),
-                     data = hq_mvic_dat,
-                     anova_table = list(es = 'pes',
-                                        correction = 'none'))
-hq_mvic_mod
-
-emmeans(hq_mvic_mod, ~ Group)
+# POST > SAM by 2.21 N/units mcsa, p=0.045, d=0.723
